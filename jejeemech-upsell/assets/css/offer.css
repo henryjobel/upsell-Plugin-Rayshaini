@@ -1,0 +1,545 @@
+/* ============================================================
+   Upsell Rayshani - Popup Offer Styles
+   ============================================================ */
+
+/* -- Overlay ------------------------------------------------- */
+.jm-popup-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(0, 0, 0, 0.55) !important;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    z-index: 999999 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 16px !important;
+    animation: jmFadeIn 0.3s ease-out;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* Checkout mode - hidden until JS shows it */
+.jm-popup-checkout {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    animation: none !important;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.jm-popup-checkout.jm-active {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: all !important;
+}
+
+.jm-popup-checkout.jm-active .jm-popup-card {
+    animation: jmSlideUp 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* iOS scroll lock */
+body.jm-noscroll {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+}
+
+@keyframes jmFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes jmSlideUp {
+    from { opacity: 0; transform: translateY(48px) scale(0.95); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* -- Card ---------------------------------------------------- */
+.jm-popup-card {
+    background: #fff !important;
+    border-radius: 18px !important;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22) !important;
+    width: 100% !important;
+    max-width: 460px !important;
+    max-height: 92vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    animation: jmSlideUp 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+    scrollbar-width: none;
+    box-sizing: border-box !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+    color: #111827 !important;
+    line-height: 1.5 !important;
+    text-align: left !important;
+    border: none !important;
+}
+
+.jm-popup-card::-webkit-scrollbar { display: none; }
+
+.jm-popup-card *,
+.jm-popup-card *::before,
+.jm-popup-card *::after {
+    box-sizing: border-box !important;
+}
+
+/* -- Close button -------------------------------------------- */
+.jm-close-btn {
+    position: absolute !important;
+    top: 12px !important;
+    right: 12px !important;
+    z-index: 10 !important;
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    min-height: 30px !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    color: #555 !important;
+    transition: background 0.2s, color 0.2s;
+    padding: 0 !important;
+    margin: 0 !important;
+    line-height: 1 !important;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08) !important;
+    outline: none !important;
+}
+
+.jm-close-btn:hover {
+    background: #f3f4f6 !important;
+    color: #111 !important;
+}
+
+.jm-close-btn svg {
+    width: 16px !important;
+    height: 16px !important;
+    display: block !important;
+}
+
+/* -- Badge pill ---------------------------------------------- */
+.jm-popup-badge-wrap {
+    text-align: center !important;
+    padding: 20px 24px 0 !important;
+    margin: 0 !important;
+}
+
+.jm-popup-badge-pill {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    background: #fff0e6 !important;
+    color: #c2410c !important;
+    border: 1.5px solid #fdba74 !important;
+    border-radius: 50px !important;
+    padding: 6px 16px !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.2px !important;
+    text-transform: uppercase !important;
+    line-height: 1.2 !important;
+    margin: 0 !important;
+    text-decoration: none !important;
+}
+
+.jm-fire-icon {
+    flex-shrink: 0 !important;
+    fill: #ea580c !important;
+    width: 13px !important;
+    height: 13px !important;
+}
+
+/* Downsell variant colours */
+.jm-downsell .jm-popup-badge-pill {
+    background: #fdf4ff !important;
+    color: #7e22ce !important;
+    border-color: #e9d5ff !important;
+}
+.jm-downsell .jm-fire-icon { fill: #9333ea !important; }
+
+/* -- Headline ------------------------------------------------ */
+.jm-popup-header {
+    padding: 14px 28px 0 !important;
+    text-align: center !important;
+    margin: 0 !important;
+}
+
+.jm-popup-headline {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 20px !important;
+    font-weight: 800 !important;
+    color: #111827 !important;
+    line-height: 1.4 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    text-align: center !important;
+    letter-spacing: -0.2px !important;
+    text-transform: none !important;
+    text-decoration: none !important;
+    border: none !important;
+    background: none !important;
+}
+
+/* -- Full-width product image -------------------------------- */
+.jm-popup-image {
+    margin: 16px 20px 0 !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    max-height: 260px !important;
+    background: #f9fafb !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+.jm-popup-image img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 260px !important;
+    object-fit: cover !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    transition: transform 0.35s ease;
+}
+
+.jm-popup-image:hover img { transform: scale(1.03); }
+
+/* -- Body ---------------------------------------------------- */
+.jm-popup-body {
+    padding: 18px 24px 22px !important;
+    margin: 0 !important;
+}
+
+.jm-popup-title {
+    margin: 0 0 14px !important;
+    padding: 0 !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #111827 !important;
+    line-height: 1.3 !important;
+    text-align: left !important;
+    text-decoration: none !important;
+    border: none !important;
+    background: none !important;
+    letter-spacing: -0.1px !important;
+}
+
+/* -- Feature bullets ----------------------------------------- */
+.jm-popup-features {
+    list-style: none !important;
+    margin: 0 0 16px !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    border: none !important;
+    background: none !important;
+}
+
+.jm-popup-features li {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    font-size: 13.5px !important;
+    color: #374151 !important;
+    font-weight: 500 !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+    border: none !important;
+    background: none !important;
+}
+
+.jm-popup-features li::before {
+    display: none !important;
+}
+
+.jm-popup-features li::marker {
+    display: none !important;
+    content: "" !important;
+}
+
+.jm-popup-features li svg {
+    flex-shrink: 0 !important;
+    width: 18px !important;
+    height: 18px !important;
+}
+
+/* -- Divider ------------------------------------------------- */
+.jm-popup-divider {
+    height: 1px !important;
+    background: #e5e7eb !important;
+    margin: 16px 0 !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+/* -- Price block --------------------------------------------- */
+.jm-popup-price-block {
+    margin-bottom: 6px !important;
+    padding: 0 !important;
+    text-align: center !important;
+}
+
+.jm-price-row {
+    display: flex !important;
+    align-items: baseline !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    margin-bottom: 4px !important;
+    flex-wrap: wrap !important;
+    padding: 0 !important;
+}
+
+.jm-original-price {
+    font-size: 16px !important;
+    color: #9ca3af !important;
+    text-decoration: line-through !important;
+    font-weight: 500 !important;
+    line-height: 1 !important;
+}
+
+.jm-final-price {
+    font-size: 30px !important;
+    font-weight: 900 !important;
+    color: #111827 !important;
+    letter-spacing: -0.5px !important;
+    line-height: 1 !important;
+}
+
+.jm-save-line {
+    font-size: 13.5px !important;
+    font-weight: 700 !important;
+    color: #15803d !important;
+    margin-bottom: 8px !important;
+    text-align: center !important;
+    padding: 0 !important;
+}
+
+/* -- Urgency line -------------------------------------------- */
+.jm-urgency-line {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    font-size: 12.5px !important;
+    font-weight: 600 !important;
+    color: #dc2626 !important;
+    margin-bottom: 2px !important;
+    text-align: center !important;
+    padding: 0 !important;
+}
+
+.jm-urgency-line svg {
+    flex-shrink: 0 !important;
+    stroke: #dc2626 !important;
+    width: 13px !important;
+    height: 13px !important;
+}
+
+/* -- Accept button ------------------------------------------- */
+.jm-btn-accept {
+    display: block !important;
+    width: 100% !important;
+    padding: 16px 20px !important;
+    margin: 18px 0 0 !important;
+    background: #14532d !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 12px !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    letter-spacing: 0.2px !important;
+    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    font-family: inherit !important;
+    text-align: center !important;
+    box-shadow: 0 4px 16px rgba(20, 83, 45, 0.35) !important;
+    line-height: 1.3 !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+    outline: none !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+}
+
+.jm-btn-accept:hover {
+    background: #166534 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 22px rgba(20, 83, 45, 0.45) !important;
+    color: #fff !important;
+}
+
+.jm-btn-accept:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(20, 83, 45, 0.3) !important;
+}
+
+.jm-btn-accept:disabled {
+    opacity: 0.7 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+}
+
+/* -- Decline text link --------------------------------------- */
+.jm-btn-decline {
+    display: block !important;
+    width: 100% !important;
+    margin: 10px 0 0 !important;
+    background: transparent !important;
+    border: none !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    color: #9ca3af !important;
+    cursor: pointer !important;
+    text-align: center !important;
+    padding: 8px 0 !important;
+    font-family: inherit !important;
+    transition: color 0.2s;
+    text-decoration: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    line-height: 1.4 !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+}
+
+.jm-btn-decline:hover { color: #6b7280 !important; }
+.jm-btn-decline:disabled { opacity: 0.6 !important; cursor: not-allowed !important; }
+
+/* -- Trust bar ----------------------------------------------- */
+.jm-popup-trust {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 20px !important;
+    margin-top: 14px !important;
+    padding-top: 14px !important;
+    border-top: 1px solid #f3f4f6 !important;
+    flex-wrap: wrap !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    background: none !important;
+}
+
+.jm-trust-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    font-size: 11px !important;
+    color: #6b7280 !important;
+    font-weight: 500 !important;
+    white-space: nowrap !important;
+    line-height: 1.2 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.jm-trust-item svg {
+    flex-shrink: 0 !important;
+    stroke: #9ca3af !important;
+    width: 14px !important;
+    height: 14px !important;
+}
+
+/* -- Loading overlay ----------------------------------------- */
+.jm-popup-loading {
+    position: absolute !important;
+    inset: 0 !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 10 !important;
+    border-radius: 18px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.jm-spinner {
+    width: 38px !important;
+    height: 38px !important;
+    border: 3.5px solid #e5e7eb !important;
+    border-top-color: #14532d !important;
+    border-radius: 50% !important;
+    animation: jmSpin 0.75s linear infinite !important;
+    margin-bottom: 12px !important;
+    background: none !important;
+}
+
+@keyframes jmSpin { to { transform: rotate(360deg); } }
+
+#jm-loading-text {
+    font-size: 13.5px !important;
+    color: #374151 !important;
+    font-weight: 500 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* -- Card transition (content swap) -------------------------- */
+.jm-popup-card.jm-transitioning {
+    opacity: 0 !important;
+    transform: scale(0.96) !important;
+    transition: opacity 0.18s ease, transform 0.18s ease !important;
+}
+
+.jm-popup-card.jm-transitioned {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+    transition: opacity 0.25s ease, transform 0.25s ease !important;
+}
+
+/* -- Responsive - mobile bottom sheet ------------------------ */
+@media (max-width: 520px) {
+    .jm-popup-overlay {
+        padding: 0 !important;
+        align-items: flex-end !important;
+    }
+
+    .jm-popup-card {
+        border-radius: 20px 20px 0 0 !important;
+        max-height: 96vh !important;
+        max-width: 100% !important;
+    }
+
+    .jm-popup-image {
+        margin: 12px 14px 0 !important;
+        max-height: 200px !important;
+    }
+
+    .jm-popup-image img {
+        max-height: 200px !important;
+    }
+
+    .jm-popup-headline { font-size: 17px !important; }
+    .jm-final-price { font-size: 26px !important; }
+
+    .jm-popup-body {
+        padding: 14px 18px 18px !important;
+    }
+
+    .jm-popup-trust {
+        gap: 14px !important;
+    }
+
+    .jm-popup-badge-wrap {
+        padding: 16px 18px 0 !important;
+    }
+
+    .jm-popup-header {
+        padding: 12px 18px 0 !important;
+    }
+}
