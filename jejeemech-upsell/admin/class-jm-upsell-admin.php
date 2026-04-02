@@ -463,6 +463,26 @@ class JM_Upsell_Admin {
                         <p class="description"><?php esc_html_e( 'Leave 0 for no discount.', 'jejeemech-upsell' ); ?></p>
                     </td>
                 </tr>
+                <tr>
+                    <th><label><?php esc_html_e( 'Badge Text', 'jejeemech-upsell' ); ?></label></th>
+                    <td>
+                        <input type="text" name="<?php echo esc_attr( $prefix ); ?>[upsell_badge_text]"
+                            class="regular-text"
+                            value="<?php echo $upsell_step && ! empty( $upsell_step->badge_text ) ? esc_attr( $upsell_step->badge_text ) : ''; ?>"
+                            placeholder="<?php esc_attr_e( 'e.g. LIMITED TIME OFFER', 'jejeemech-upsell' ); ?>">
+                        <p class="description"><?php esc_html_e( 'Leave empty for default: LIMITED TIME OFFER', 'jejeemech-upsell' ); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label><?php esc_html_e( 'Headline', 'jejeemech-upsell' ); ?></label></th>
+                    <td>
+                        <input type="text" name="<?php echo esc_attr( $prefix ); ?>[upsell_headline]"
+                            class="regular-text"
+                            value="<?php echo $upsell_step && ! empty( $upsell_step->headline ) ? esc_attr( $upsell_step->headline ) : ''; ?>"
+                            placeholder="<?php esc_attr_e( 'e.g. Wait, You Won a Special Offer!', 'jejeemech-upsell' ); ?>">
+                        <p class="description"><?php esc_html_e( 'Leave empty for auto-generated headline based on discount.', 'jejeemech-upsell' ); ?></p>
+                    </td>
+                </tr>
             </table>
 
             <div class="jm-downsell-section">
@@ -501,6 +521,26 @@ class JM_Upsell_Admin {
                                 <input type="number" name="<?php echo esc_attr( $prefix ); ?>[downsell_discount]"
                                     class="small-text" min="0" max="100" step="1"
                                     value="<?php echo $downsell_step ? esc_attr( $downsell_step->discount ) : '0'; ?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label><?php esc_html_e( 'Downsell Badge Text', 'jejeemech-upsell' ); ?></label></th>
+                            <td>
+                                <input type="text" name="<?php echo esc_attr( $prefix ); ?>[downsell_badge_text]"
+                                    class="regular-text"
+                                    value="<?php echo $downsell_step && ! empty( $downsell_step->badge_text ) ? esc_attr( $downsell_step->badge_text ) : ''; ?>"
+                                    placeholder="<?php esc_attr_e( 'e.g. LAST CHANCE', 'jejeemech-upsell' ); ?>">
+                                <p class="description"><?php esc_html_e( 'Leave empty for default: LIMITED TIME OFFER', 'jejeemech-upsell' ); ?></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label><?php esc_html_e( 'Downsell Headline', 'jejeemech-upsell' ); ?></label></th>
+                            <td>
+                                <input type="text" name="<?php echo esc_attr( $prefix ); ?>[downsell_headline]"
+                                    class="regular-text"
+                                    value="<?php echo $downsell_step && ! empty( $downsell_step->headline ) ? esc_attr( $downsell_step->headline ) : ''; ?>"
+                                    placeholder="<?php esc_attr_e( 'e.g. Wait! Here\'s a Better Deal', 'jejeemech-upsell' ); ?>">
+                                <p class="description"><?php esc_html_e( 'Leave empty for default: Wait! Here\'s a Better Deal', 'jejeemech-upsell' ); ?></p>
                             </td>
                         </tr>
                     </table>
@@ -577,6 +617,9 @@ class JM_Upsell_Admin {
                     continue;
                 }
 
+                $upsell_badge_text = isset( $step['upsell_badge_text'] ) ? sanitize_text_field( $step['upsell_badge_text'] ) : '';
+                $upsell_headline   = isset( $step['upsell_headline'] ) ? sanitize_text_field( $step['upsell_headline'] ) : '';
+
                 // Insert upsell step.
                 $wpdb->insert(
                     $steps_table,
@@ -586,9 +629,11 @@ class JM_Upsell_Admin {
                         'product_id'   => $upsell_product_id,
                         'variation_id' => $upsell_variation_id,
                         'discount'     => $upsell_discount,
+                        'badge_text'   => $upsell_badge_text,
+                        'headline'     => $upsell_headline,
                         'step_order'   => $step_order,
                     ),
-                    array( '%d', '%s', '%d', '%d', '%f', '%d' )
+                    array( '%d', '%s', '%d', '%d', '%f', '%s', '%s', '%d' )
                 );
                 $upsell_step_id = $wpdb->insert_id;
                 $step_order++;
@@ -601,6 +646,9 @@ class JM_Upsell_Admin {
                     $downsell_discount     = isset( $step['downsell_discount'] ) ? floatval( $step['downsell_discount'] ) : 0;
                     $downsell_discount     = max( 0, min( 100, $downsell_discount ) );
 
+                    $downsell_badge_text = isset( $step['downsell_badge_text'] ) ? sanitize_text_field( $step['downsell_badge_text'] ) : '';
+                    $downsell_headline   = isset( $step['downsell_headline'] ) ? sanitize_text_field( $step['downsell_headline'] ) : '';
+
                     if ( $downsell_product_id > 0 ) {
                         $wpdb->insert(
                             $steps_table,
@@ -610,10 +658,12 @@ class JM_Upsell_Admin {
                                 'product_id'     => $downsell_product_id,
                                 'variation_id'   => $downsell_variation_id,
                                 'discount'       => $downsell_discount,
+                                'badge_text'     => $downsell_badge_text,
+                                'headline'       => $downsell_headline,
                                 'step_order'     => $step_order,
                                 'parent_step_id' => $upsell_step_id,
                             ),
-                            array( '%d', '%s', '%d', '%d', '%f', '%d', '%d' )
+                            array( '%d', '%s', '%d', '%d', '%f', '%s', '%s', '%d', '%d' )
                         );
                         $step_order++;
                     }

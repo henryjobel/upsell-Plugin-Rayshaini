@@ -234,21 +234,31 @@ class JM_Upsell_Funnel {
             $image_url = wc_placeholder_img_src( 'medium' );
         }
 
+        // Use custom headline from DB if set, otherwise fall back to defaults.
+        $custom_headline   = isset( $step->headline ) ? trim( $step->headline ) : '';
+        $custom_badge_text = isset( $step->badge_text ) ? trim( $step->badge_text ) : '';
+
+        if ( '' !== $custom_headline ) {
+            $headline = $custom_headline;
+        } elseif ( $is_downsell ) {
+            $headline = __( 'Wait! Here\'s a Better Deal', 'jejeemech-upsell' );
+        } elseif ( $discount > 0 ) {
+            $headline = sprintf(
+                /* translators: %s: discount percentage */
+                __( 'Wait, You Won a %s%% Discount Offer on This Product', 'jejeemech-upsell' ),
+                intval( $discount )
+            );
+        } else {
+            $headline = __( 'Special Offer Just For You!', 'jejeemech-upsell' );
+        }
+
         if ( $is_downsell ) {
-            $headline    = __( 'Wait! Here\'s a Better Deal', 'jejeemech-upsell' );
             $subheadline = __( 'We have an even better offer for you!', 'jejeemech-upsell' );
         } else {
-            if ( $discount > 0 ) {
-                $headline = sprintf(
-                    /* translators: %s: discount percentage */
-                    __( 'Wait, You Won a %s%% Discount Offer on This Product', 'jejeemech-upsell' ),
-                    intval( $discount )
-                );
-            } else {
-                $headline = __( 'Special Offer Just For You!', 'jejeemech-upsell' );
-            }
             $subheadline = __( 'Add this to your order with one click', 'jejeemech-upsell' );
         }
+
+        $badge_text = '' !== $custom_badge_text ? $custom_badge_text : __( 'LIMITED TIME OFFER', 'jejeemech-upsell' );
 
         $short_desc = $product->get_short_description();
 
@@ -265,7 +275,7 @@ class JM_Upsell_Funnel {
             'is_downsell'       => $is_downsell,
             'headline'          => $headline,
             'subheadline'       => $subheadline,
-            'badge_text'        => __( 'LIMITED TIME OFFER', 'jejeemech-upsell' ),
+            'badge_text'        => $badge_text,
         );
     }
 

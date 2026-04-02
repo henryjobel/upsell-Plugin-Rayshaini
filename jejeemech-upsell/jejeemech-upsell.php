@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'JM_UPSELL_VERSION', '1.1.5' );
+define( 'JM_UPSELL_VERSION', '1.1.6' );
 define( 'JM_UPSELL_FILE', __FILE__ );
 define( 'JM_UPSELL_PATH', plugin_dir_path( __FILE__ ) );
 define( 'JM_UPSELL_URL', plugin_dir_url( __FILE__ ) );

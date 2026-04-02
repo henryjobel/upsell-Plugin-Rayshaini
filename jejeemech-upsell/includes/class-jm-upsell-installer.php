@@ -43,6 +43,8 @@ CREATE TABLE {$steps_table} (
   product_id bigint(20) unsigned NOT NULL DEFAULT 0,
   variation_id bigint(20) unsigned NOT NULL DEFAULT 0,
   discount decimal(5,2) NOT NULL DEFAULT 0.00,
+  badge_text varchar(255) NOT NULL DEFAULT '',
+  headline varchar(255) NOT NULL DEFAULT '',
   step_order int(11) NOT NULL DEFAULT 1,
   parent_step_id bigint(20) unsigned DEFAULT NULL,
   PRIMARY KEY  (id),
