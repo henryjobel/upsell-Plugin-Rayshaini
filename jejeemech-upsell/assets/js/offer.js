@@ -148,6 +148,13 @@
                 $('#jm-popup-img').attr('src', step.image_url).attr('alt', step.product_name);
                 $('#jm-popup-title').text(step.product_name);
 
+                // Product description
+                if (step.product_short_desc) {
+                    $('#jm-popup-desc').html(step.product_short_desc);
+                } else {
+                    $('#jm-popup-desc').html('');
+                }
+
                 // Price block
                 var priceHtml = '<div class="jm-price-row">';
                 if (step.discount > 0) {
@@ -184,7 +191,7 @@
 
         function showLoading(text) {
             $('#jm-loading-text').text(text);
-            $('#jm-popup-loading').fadeIn(150);
+            $('#jm-popup-loading').addClass('jm-loading-visible');
         }
 
         function updateLoadingText(text) {
@@ -192,7 +199,7 @@
         }
 
         function hideLoading() {
-            $('#jm-popup-loading').fadeOut(150);
+            $('#jm-popup-loading').removeClass('jm-loading-visible');
         }
     });
 

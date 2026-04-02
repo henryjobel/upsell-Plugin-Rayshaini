@@ -250,11 +250,13 @@ class JM_Upsell_Funnel {
             $subheadline = __( 'Add this to your order with one click', 'jejeemech-upsell' );
         }
 
+        $short_desc = $product->get_short_description();
+
         return array(
             'step_id'           => $step->id,
             'funnel_id'         => intval( $step->funnel_id ),
             'product_name'      => $product->get_name(),
-            'product_short_desc'=> wp_kses_post( $product->get_short_description() ),
+            'product_short_desc'=> wp_kses_post( $short_desc ),
             'image_url'         => $image_url,
             'discount'          => $discount,
             'price_html'        => wc_price( $price ),
@@ -271,13 +273,6 @@ class JM_Upsell_Funnel {
      * Render the popup overlay HTML on the thank you page.
      */
     private function render_popup_html( $data, $hidden = false ) {
-        // Bullet features — pulled from short description paragraphs or defaults.
-        $features = array(
-            __( 'Premium quality ingredients', 'jejeemech-upsell' ),
-            __( 'Highly rated by customers', 'jejeemech-upsell' ),
-            __( 'Perfect complement to your purchase', 'jejeemech-upsell' ),
-            __( 'Satisfaction guaranteed', 'jejeemech-upsell' ),
-        );
         ?>
         <!-- JejeeMech Upsell Popup Overlay -->
         <div id="jm-popup-overlay" class="jm-popup-overlay <?php echo $data['is_downsell'] ? 'jm-downsell' : 'jm-upsell'; ?><?php echo $hidden ? ' jm-popup-checkout' : ''; ?>">
@@ -313,12 +308,12 @@ class JM_Upsell_Funnel {
 
                     <h3 class="jm-popup-title" id="jm-popup-title"><?php echo esc_html( $data['product_name'] ); ?></h3>
 
-                    <!-- Feature bullets -->
-                    <ul class="jm-popup-features" id="jm-popup-features">
-                        <?php foreach ( $features as $feature ) : ?>
-                            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#1a7f4b"/><path d="M7 12l3.5 3.5L17 9" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><?php echo esc_html( $feature ); ?></li>
-                        <?php endforeach; ?>
-                    </ul>
+                    <!-- Product description -->
+                    <div class="jm-popup-desc" id="jm-popup-desc">
+                        <?php if ( ! empty( $data['product_short_desc'] ) ) : ?>
+                            <?php echo wp_kses_post( $data['product_short_desc'] ); ?>
+                        <?php endif; ?>
+                    </div>
 
                     <!-- Divider -->
                     <div class="jm-popup-divider"></div>
@@ -384,13 +379,13 @@ class JM_Upsell_Funnel {
 
                 </div><!-- /.jm-popup-body -->
 
-            </div><!-- /.jm-popup-card -->
+                <!-- Loading spinner overlay -->
+                <div id="jm-popup-loading" class="jm-popup-loading">
+                    <div class="jm-spinner"></div>
+                    <p id="jm-loading-text"><?php esc_html_e( 'Processing...', 'jejeemech-upsell' ); ?></p>
+                </div>
 
-            <!-- Loading spinner overlay -->
-            <div id="jm-popup-loading" class="jm-popup-loading" style="display:none;">
-                <div class="jm-spinner"></div>
-                <p id="jm-loading-text"><?php esc_html_e( 'Processing...', 'jejeemech-upsell' ); ?></p>
-            </div>
+            </div><!-- /.jm-popup-card -->
 
         </div>
         <?php

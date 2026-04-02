@@ -217,7 +217,8 @@
             var $toggle = $(this);
             var funnelId = $toggle.data('id');
             var status = $toggle.is(':checked') ? 'active' : 'inactive';
-            var $label = $toggle.closest('td').find('.jm-status-label');
+            var $card = $toggle.closest('.jm-funnel-card');
+            var $badge = $card.find('.jm-funnel-badge--status');
 
             $.post(jmUpsellAdmin.ajax_url, {
                 action: 'jm_upsell_toggle_funnel',
@@ -226,7 +227,15 @@
                 status: status
             }, function (response) {
                 if (response.success) {
-                    $label.text(status === 'active' ? 'Active' : 'Inactive');
+                    if (status === 'active') {
+                        $card.removeClass('is-inactive').addClass('is-active');
+                        $badge.removeClass('jm-badge-inactive').addClass('jm-badge-active')
+                            .html('<span class="jm-badge-dot"></span> Active');
+                    } else {
+                        $card.removeClass('is-active').addClass('is-inactive');
+                        $badge.removeClass('jm-badge-active').addClass('jm-badge-inactive')
+                            .html('<span class="jm-badge-dot"></span> Inactive');
+                    }
                 }
             });
         });
@@ -239,7 +248,7 @@
 
             var $btn = $(this);
             var funnelId = $btn.data('id');
-            var $row = $btn.closest('tr');
+            var $card = $btn.closest('.jm-funnel-card');
             var $notice = $('#jm-upsell-notice');
 
             $.post(jmUpsellAdmin.ajax_url, {
@@ -248,7 +257,7 @@
                 funnel_id: funnelId
             }, function (response) {
                 if (response.success) {
-                    $row.fadeOut(300, function () {
+                    $card.fadeOut(300, function () {
                         $(this).remove();
                     });
                     showNotice($notice, 'success', response.data.message);

@@ -225,53 +225,41 @@ body.jm-noscroll {
     font-weight: 700 !important;
     color: #111827 !important;
     line-height: 1.3 !important;
-    text-align: left !important;
+    text-align: center !important;
     text-decoration: none !important;
     border: none !important;
     background: none !important;
     letter-spacing: -0.1px !important;
 }
 
-/* -- Feature bullets ----------------------------------------- */
-.jm-popup-features {
-    list-style: none !important;
-    margin: 0 0 16px !important;
-    padding: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 8px !important;
-    border: none !important;
-    background: none !important;
-}
-
-.jm-popup-features li {
-    display: flex !important;
-    align-items: center !important;
-    gap: 10px !important;
+/* -- Product description ------------------------------------- */
+.jm-popup-desc {
     font-size: 13.5px !important;
     color: #374151 !important;
-    font-weight: 500 !important;
-    line-height: 1.4 !important;
-    margin: 0 !important;
+    line-height: 1.6 !important;
+    margin: 0 0 16px !important;
     padding: 0 !important;
-    list-style: none !important;
     border: none !important;
     background: none !important;
 }
 
-.jm-popup-features li::before {
-    display: none !important;
+.jm-popup-desc p {
+    margin: 0 0 8px !important;
+    padding: 0 !important;
 }
 
-.jm-popup-features li::marker {
-    display: none !important;
-    content: "" !important;
+.jm-popup-desc p:last-child {
+    margin-bottom: 0 !important;
 }
 
-.jm-popup-features li svg {
-    flex-shrink: 0 !important;
-    width: 18px !important;
-    height: 18px !important;
+.jm-popup-desc ul,
+.jm-popup-desc ol {
+    margin: 0 0 8px !important;
+    padding-left: 18px !important;
+}
+
+.jm-popup-desc li {
+    margin: 0 0 4px !important;
 }
 
 /* -- Divider ------------------------------------------------- */
@@ -458,14 +446,18 @@ body.jm-noscroll {
     position: absolute !important;
     inset: 0 !important;
     background: rgba(255, 255, 255, 0.92) !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     z-index: 10 !important;
     border-radius: 18px !important;
     margin: 0 !important;
     padding: 0 !important;
+}
+
+.jm-popup-loading.jm-loading-visible {
+    display: flex !important;
 }
 
 .jm-spinner {
